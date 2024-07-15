@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Divyesh@1234",
+    "database": "taskmanager",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "your_db_username",
+    "password": "your_db_password",
+    "database": "taskmanager_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "your_db_username",
+    "password": "your_db_password",
+    "database": "taskmanager_prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
