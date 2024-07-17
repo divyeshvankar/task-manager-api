@@ -14,10 +14,11 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "your_db_username",
-    "password": "your_db_password",
-    "database": "taskmanager_prod",
+    "username": "divyesh",
+    "password": "aTxn87dEmmhYGiIjEM0qN0Fkgw9ccMsJ",
+    "database": "task_manager_db_irqu",
     "host": "127.0.0.1",
+    "port": "5432",
     "dialect": "postgres"
   }
 }
