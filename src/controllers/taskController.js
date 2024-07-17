@@ -1,47 +1,86 @@
 // src/controllers/taskController.js
 const {Task }= require('../../models');
 
+// exports.createTask = async (req, res) => {
+//     const { title, description, status, dueDate } = req.body;
+//     const { userId } = req.user; // Assuming userId is set in req.user after authentication
+//     console.log("Hello*********\n")
+//     console.log(userId)
+//     try {
+//       const newTask = await Task.create({
+//         title,
+//         description,
+//         status,
+//         dueDate,
+//         UserId: userId, // Associate the task with the authenticated user
+//       });
+  
+//       res.status(201).json(newTask);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: `An error occurred while creating the task.${error}` });
+//     }
+//   };
+// exports.getAllTasks = async (req, res) => {
+//     try {
+//       const tasks = await Task.findAll({ where: { userId: req.user.id } });
+//       res.json(tasks);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: `An error occurred while fetching tasks.${error}` });
+//     }
+//   };
+  // Create a new task
 exports.createTask = async (req, res) => {
-    const { title, description, status, dueDate } = req.body;
-    const { userId } = req.user; // Assuming userId is set in req.user after authentication
-  
-    try {
-      const newTask = await Task.create({
-        title,
-        description,
-        status,
-        dueDate,
-        UserId: userId, // Associate the task with the authenticated user
-      });
-  
-      res.status(201).json(newTask);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: `An error occurred while creating the task.${error}` });
-    }
-  };
+  try {
+    const userId = req.user.id; // Ensure req.user is set by authentication middleware
+    console.log(userId);
+    const task = await Task.create({
+      title: req.body.title,
+      description: req.body.description,
+      status: req.body.status,
+      dueDate: req.body.dueDate,
+      UserId: userId, // Set the UserId from the authenticated user
+    });
+
+    res.status(201).json(task);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: `An error occurred while creating the task: ${error.message}` });
+  }
+};
+
+// Get all tasks for the authenticated user
 exports.getAllTasks = async (req, res) => {
-    try {
-      const tasks = await Task.findAll({ where: { userId: req.user.id } });
-      res.json(tasks);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: `An error occurred while fetching tasks.${error}` });
-    }
-  };
-  
-  exports.getTask = async (req, res) => {
-    try {
+  try {
+    const userId = req.user.id; // Ensure req.user is set by authentication middleware
+    const tasks = await Task.findAll({ where: { UserId: userId } });
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: `An error occurred while fetching tasks: ${error.message}` });
+  }
+};
+exports.getTask = async (req, res) => {
+  try {
       const task = await Task.findByPk(req.params.id);
+
       if (!task) {
-        return res.status(404).json({ error: 'Task not found.' });
+          return res.status(404).json({ error: 'Task not found.' });
       }
+
+      // Check if the task belongs to the authenticated user
+      if (task.UserId !== req.user.id) {
+          return res.status(403).json({ error: 'Access denied. You do not have permission to access this task.' });
+      }
+
       res.json(task);
-    } catch (error) {
+  } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while fetching the task.' });
-    }
-  };
+  }
+};
+
 // exports.getAllTasks = async (req, res) => {
 //     try {
 //         const tasks = await Task.findAll();
