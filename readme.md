@@ -4,6 +4,10 @@
 
 This project is a Task Manager API built using Node.js, Express, Sequelize (with PostgreSQL), and JWT for authentication.
 
+## Live API
+
+The Task Manager API is deployed and accessible at: [https://task-manager-api-20sb.onrender.com](https://task-manager-api-20sb.onrender.com)
+
 ## Table of Contents
 
 - [Features](#features)
