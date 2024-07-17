@@ -1,6 +1,8 @@
 // src/swagger.js
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const express = require('express');
+const router = express.Router();
 
 const options = {
     definition: {
@@ -13,6 +15,7 @@ const options = {
         servers: [
             {
                 url: 'http://localhost:3000',
+                description: 'Development server',
             },
         ],
     },
@@ -21,6 +24,7 @@ const options = {
 
 const specs = swaggerJsDoc(options);
 
-module.exports = (app) => {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-};
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(specs));
+
+module.exports = router;
