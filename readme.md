@@ -1,125 +1,123 @@
 ---
 
-# Task Manager API
+# Task Management API
 
-This project is a Task Manager API built using Node.js, Express, Sequelize (with PostgreSQL), and JWT for authentication.
+This project implements a RESTful API for a task management application. It allows users to perform CRUD operations on tasks, manage authentication using JWT, and ensures secure and performant handling of data.
 
-## Table of Contents
+## Requirements
 
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-  - [Authentication](#authentication)
-  - [Tasks](#tasks)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Swagger Documentation](#swagger-documentation)
-- [Contributing](#contributing)
-- [License](#license)
+### API Endpoints
 
-## Features
+- **Create a Task:** `POST /tasks`
+- **Get All Tasks:** `GET /tasks`
+- **Get a Specific Task:** `GET /tasks/:id`
+- **Update a Task:** `PUT /tasks/:id`
+- **Delete a Task:** `DELETE /tasks/:id`
 
-- User authentication (signup, login) using JWT tokens
-- CRUD operations for tasks (Create, Read, Update, Delete)
-- Pagination for listing tasks
-- Search and filter tasks by title, status, and due date
-- Swagger API documentation
-- Unit and integration testing setup
-- Deployment to cloud services (Heroku)
+### Task Data Model
 
-## Prerequisites
+- **id:** Unique identifier (auto-generated)
+- **title:** String (required)
+- **description:** String (optional)
+- **status:** String (required, options: 'pending', 'in-progress', 'completed')
+- **dueDate:** Date (optional)
 
-Before you begin, ensure you have the following installed:
+### Authentication & Authorization
 
-- Node.js (v14.x or higher)
-- PostgreSQL
-- npm or yarn
+- User authentication (sign up, log in)
+- Each user can manage only their own tasks
+- JWT (JSON Web Tokens) for securing endpoints
 
-## Installation
+### Error Handling
 
-1. Clone the repository:
+- Proper error handling with appropriate HTTP status codes
+- Validation of inputs with meaningful error messages
 
-   ```bash
-   git clone https://github.com/your-username/task-manager-api.git
-   ```
+### Code Quality
 
-2. Install dependencies:
-
-   ```bash
-   cd task-manager-api
-   npm install
-   ```
-
-## Configuration
-
-1. Set up environment variables:
-
-   Create a `.env` file in the root directory with the following:
-
-   ```plaintext
-   PORT=3000
-   DATABASE_URL=postgres://username:password@localhost:5432/task_manager_db
-   JWT_SECRET=your_jwt_secret
-   ```
-
-   Adjust values according to your environment.
-
-## Usage
-
-### Authentication
-
-- **Signup**: POST `/api/signup`
-  - Creates a new user with username, email, and password.
-
-- **Login**: POST `/api/login`
-  - Returns a JWT token for accessing protected routes.
-
-### Tasks
-
-- **Create Task**: POST `/api/tasks`
-  - Requires authentication token in the `Authorization` header.
-
-- **Get All Tasks**: GET `/api/tasks`
-  - Retrieves tasks for the authenticated user.
-
-- **Get Task by ID**: GET `/api/tasks/:id`
-  - Retrieves a specific task by ID for the authenticated user.
-
-- **Update Task**: PUT `/api/tasks/:id`
-  - Updates a task by ID. Requires authentication token.
-
-- **Delete Task**: DELETE `/api/tasks/:id`
-  - Deletes a task by ID. Requires authentication token.
+- Clean, maintainable, well-documented code
+- Follow best practices and coding standards
+- Include comments for clarity where necessary
 
 ### Testing
 
-To run tests:
+- Unit and integration tests
+- Use a testing framework (e.g., Jest) for testing
 
-```bash
-npm test
-```
+### Documentation
+
+- API documentation (Swagger, Postman, etc.)
+- Setup instructions for running the application locally
+- Instructions for running tests
+
+### Bonus Features
+
+- Pagination for tasks list
+- Search/filter feature for tasks (by title, status, due date)
 
 ### Deployment
 
-Deploy your application to Heroku or any cloud service provider:
+- Deployed to a cloud service (provide URL)
 
-1. Set up a PostgreSQL database.
-2. Configure environment variables on the deployment platform.
-3. Deploy the application using appropriate commands (e.g., Heroku CLI).
+## Setup Instructions
 
-### Swagger Documentation
+1. **Clone the repository:**
 
-Swagger API documentation is available at `/api-docs`. It provides details about API endpoints, request/response formats, and authentication requirements.
+   ```bash
+   git clone <repository-url>
+   cd task-management-api
+   ```
 
-### Contributing
+2. **Install dependencies:**
 
-Contributions are welcome! Fork the repository and submit a pull request with your enhancements.
+   ```bash
+   npm install
+   ```
 
-### License
+3. **Set up environment variables:**
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+   Create a `.env` file based on `.env.example` and configure database and JWT secret.
+
+4. **Database Migration:**
+
+   Run migration scripts to set up the database schema.
+
+   ```bash
+   npx sequelize-cli db:migrate
+   ```
+
+5. **Start the server:**
+
+   ```bash
+   npm start
+   ```
+
+   The server will start running on `http://localhost:3000`.
+
+## Running Tests
+
+1. **Run unit tests:**
+
+   ```bash
+   npm test
+   ```
+
+   This will run all unit tests and provide the test coverage report.
+
+## API Documentation
+
+- [Swagger API Documentation](<swagger-documentation-url>) (or Postman collection, etc.)
+
+## Deployment
+
+This API is deployed to <cloud-service-url>. You can access it at <api-url>.
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- Sequelize (ORM)
+- PostgreSQL (Database)
+- JWT (JSON Web Tokens) for authentication
 
 ---
-
